@@ -22,3 +22,15 @@ EXPOSE ${SERVER_PORT}
 ENTRYPOINT java -jar target/vttp5a_ssf_day15l-0.0.1-SNAPSHOT.jar
 
 #ENTRYPOINT ["java", "-jar", "target/vttp5a_ssf_day15l-0.0.1-SNAPSHOT.jar"]
+#host
+#redis://default:ADNpEdjTWmbAHrHHRjdfRnXsYhSTLWQt@junction.proxy.rlwy.net:43200
+
+#PORT
+#6379
+
+#USERNAME
+#default
+
+
+#Password
+#ADNpEdjTWmbAHrHHRjdfRnXsYhSTLWQt
