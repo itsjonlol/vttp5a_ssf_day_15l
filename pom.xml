@@ -60,8 +60,7 @@
 		</dependency>
 		<dependency>
 			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			
+			<artifactId>jedis</artifactId>	
 		</dependency>
 
 	</dependencies>
