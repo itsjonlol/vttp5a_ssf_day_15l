@@ -7,11 +7,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <button class = "btn">
+    <!-- <button class = "btn btn-primary">
         <a th:href="@{/persons/create}">Create</a>
-    </button>
-    <table>
-        <thead>
+    </button> -->
+    <div class = "container">
+        <div class = "row">
+            <h1>List of people</h1>
+        </div>
+        <div class="row">
+            <div class = "col-lg-3">
+                <a th:href="@{/persons/create}" class = "btn btn-primary btn-sm mb-3">Create</a>
+            </div>
+
+        </div>
+    <table class = "table table-striped table-bordered">
+        <thead class="table-dark">
             <tr>
                 <th>Id</th>
                 <th>Full name</th>
@@ -20,13 +30,22 @@
             </tr>
         </thead>
         <tbody>
+            <tr th:if="${persons.size() == 0 }">
+                <td colspan="9" class = "text-center">No record found</td>
+            </tr>
+
+
             <tr th:each="person : ${persons}">
                 <td th:text="${person.id}"></td>
                 <td th:text="${person.name}"></td>
                 <td th:text="${person.email}"></td>
+                <td>
+                    <a class = "btn btn-danger" th:href="@{/persons/delete/{personid}(personid=${person.id})}">Delete</a>
+                </td>
             </tr>
         </tbody>
     </table>
+</div>
     
 </body>
 </html>

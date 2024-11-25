@@ -18,18 +18,18 @@ public class PersonService {
     List<Person> persons = new ArrayList<>();
     
     public void addPerson(String redisKey,Person person) {
-        personRepo.rightPush(redisKey,person.toString());
+        personRepo.rightPush(redisKey,person.toString()); // you want to add the stirng variable
     }
 
 
 
     public List<Person> findAll(String redisKey) {
 
-        List<Object> listData = personRepo.getList(redisKey);
+        List<String> listData = personRepo.getList(redisKey);
         List<Person> persons = new ArrayList<>();
 
-        for(Object data: listData) {
-            String [] rawData = data.toString().split(",");
+        for(String data: listData) {
+            String [] rawData = data.split(",");
             Person p = new Person(Integer.parseInt(rawData[0]), rawData[1], rawData[2]);
             persons.add(p);
 
