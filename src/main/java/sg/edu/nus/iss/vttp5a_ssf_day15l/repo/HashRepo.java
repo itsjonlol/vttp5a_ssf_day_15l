@@ -60,8 +60,8 @@ public class HashRepo {
     }
 
     // Get the size of a hash (number of keys)
-    public Long getHashSize(String redisKey) { //hlen c01
-        return template.opsForHash().size(redisKey);
+    public Integer getHashSize(String redisKey) { //hlen c01
+        return template.opsForHash().size(redisKey).intValue();
     }
 
     // Check if a hash exists
@@ -72,11 +72,22 @@ public class HashRepo {
     //expire a key
     // HSET myHashKey field1 value1
     // EXPIRE myHashKey 10
+    //remember to casr int to long
     public void expireKey(String redisKey, Long seconds) {
         Duration expireDuration = Duration.ofSeconds(seconds);
         template.expire(redisKey, expireDuration);
         
     }
+    public void addToHashWithTTL(String redisKey, String hashKey, String hashValue, long seconds) {
+        // Add value to the hash
+        template.opsForHash().put(redisKey, hashKey, hashValue);
+
+        // Set TTL for the key
+        template.expire(redisKey, Duration.ofSeconds(seconds));
+    }
+
+
+
     // Add multiple key-value pairs to a hash
     public void setMapAll(String redisKey, HashMap<String, String> map) {
         template.opsForHash().putAll(redisKey, map);

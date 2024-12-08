@@ -44,8 +44,10 @@ public class ListRepo {
     } 
     
     //size
-    public Long size(String redisKey) { //lllreen cart
-        return template.opsForList().size(redisKey); //long cartLen = template.opsForlist().size("cart");
+    public Integer size(String redisKey) { //lllreen cart
+        return template.opsForList().size(redisKey).intValue(); //long cartLen = template.opsForlist().size("cart");
+        //Long size = ___
+        //return size.intValue()
     }
     //key is the list
     public List<String> getList(String redisKey) {
@@ -73,12 +75,22 @@ public class ListRepo {
     }
     // RPUSH myListKey myListValue
     // EXPIRE myListKey 10
-
+    //remember to cast integer to long 
      public void expireKey(String redisKey, Long seconds) {
         Duration expireDuration = Duration.ofSeconds(seconds);
         template.expire(redisKey, expireDuration);
         
     }
+
+    public void addToListWithTTL(String redisKey, String value, long seconds) {
+        // Add value to the list
+        template.opsForList().rightPush(redisKey, value);
+
+        // Set TTL for the key
+        template.expire(redisKey, Duration.ofSeconds(seconds));
+    }
+
+   
 
     // public Boolean deleteItem(String key, String valueToDelete) {
     //     Boolean isDeleted = false;

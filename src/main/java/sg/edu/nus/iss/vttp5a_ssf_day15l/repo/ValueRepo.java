@@ -54,7 +54,10 @@ public class ValueRepo {
 
     public void decrementByValue(String redisKey,Integer value) {
         template.opsForValue().decrement(redisKey,value);
+        
     }
+
+   
 
     public boolean checkExists(String redisKey) {
         return template.hasKey(redisKey); //boolean hasEmail = tempalte.hasKey("email");
@@ -63,10 +66,15 @@ public class ValueRepo {
     //expire key 
     //SET myKey "myValue" EX 10
     // SETEX myKey 10 "myValue"
-
+    //remember to cast back from integer to long
     public void expireKey(String redisKey, Long seconds) {
         Duration expireDuration = Duration.ofSeconds(seconds);
         template.expire(redisKey, expireDuration);
+    }
+
+    public void setKeyWithTTL(String key, String value, Long seconds) {
+        // Set the key with value and TTL
+        template.opsForValue().set(key, value, Duration.ofSeconds(seconds));
     }
 
 
