@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.vttp5a_ssf_day15l.repo;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +69,14 @@ public class HashRepo {
         return template.hasKey(redisKey);
     }
 
+    //expire a key
+    // HSET myHashKey field1 value1
+    // EXPIRE myHashKey 10
+    public void expireKey(String redisKey, Long seconds) {
+        Duration expireDuration = Duration.ofSeconds(seconds);
+        template.expire(redisKey, expireDuration);
+        
+    }
     // Add multiple key-value pairs to a hash
     public void setMapAll(String redisKey, HashMap<String, String> map) {
         template.opsForHash().putAll(redisKey, map);

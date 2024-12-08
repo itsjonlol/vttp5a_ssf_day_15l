@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.vttp5a_ssf_day15l.repo;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,14 @@ public class ListRepo {
         }
         return isDeleted;
         
+        
+    }
+    // RPUSH myListKey myListValue
+    // EXPIRE myListKey 10
+
+     public void expireKey(String redisKey, Long seconds) {
+        Duration expireDuration = Duration.ofSeconds(seconds);
+        template.expire(redisKey, expireDuration);
         
     }
 

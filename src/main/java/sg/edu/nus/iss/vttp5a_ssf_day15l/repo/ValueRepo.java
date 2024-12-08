@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.vttp5a_ssf_day15l.repo;
 
+import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -58,6 +60,14 @@ public class ValueRepo {
         return template.hasKey(redisKey); //boolean hasEmail = tempalte.hasKey("email");
     }
 
+    //expire key 
+    //SET myKey "myValue" EX 10
+    // SETEX myKey 10 "myValue"
+
+    public void expireKey(String redisKey, Long seconds) {
+        Duration expireDuration = Duration.ofSeconds(seconds);
+        template.expire(redisKey, expireDuration);
+    }
 
 
 
